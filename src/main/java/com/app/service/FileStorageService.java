@@ -11,11 +11,10 @@ public class FileStorageService {
         this.filePath = filePath;
     }
 
-    public Map<String, Book> loadBooksFromCSV() {
+    public Map<String, Book> loadBooks() {
         Map<String, Book> books = new HashMap<>();
         File file = new File(filePath);
 
-        // Seed default catalog if file does not exist or is empty
         if (!file.exists() || file.length() == 0) {
             System.out.println("No existing catalog found. Seeding initial library data...");
             return seedInitialData();
@@ -31,10 +30,7 @@ public class FileStorageService {
                     String author = parts[2].trim();
                     boolean isIssued = Boolean.parseBoolean(parts[3].trim());
                     
-                    Book book = new Book(title, author, isbn);
-                    if (isIssued) {
-                        book.setIssued(true);
-                    }
+                    Book book = new Book(title, author, isbn, isIssued);
                     books.put(isbn, book);
                 }
             }
@@ -48,22 +44,21 @@ public class FileStorageService {
     private Map<String, Book> seedInitialData() {
         Map<String, Book> defaultBooks = new HashMap<>();
         
-        Book b1 = new Book("Effective Java", "Joshua Bloch", "101");
-        Book b2 = new Book("Clean Code", "Robert C. Martin", "102");
-        Book b3 = new Book("Design Patterns", "Erich Gamma", "103");
+        Book b1 = new Book("Effective Java", "Joshua Bloch", "101", false);
+        Book b2 = new Book("Clean Code", "Robert C. Martin", "102", false);
+        Book b3 = new Book("Design Patterns", "Erich Gamma", "103", false);
 
-        defaultBooks.put(b1.getIsbn(), b1);
-        defaultBooks.put(b2.getIsbn(), b2);
-        defaultBooks.put(b3.getIsbn(), b3);
+        defaultBooks.put("101", b1);
+        defaultBooks.put("102", b2);
+        defaultBooks.put("103", b3);
 
-        // Write seeded data directly to CSV
-        saveBooksToCSV(defaultBooks);
+        saveBooks(defaultBooks.values());
         return defaultBooks;
     }
 
-    public void saveBooksToCSV(Map<String, Book> books) {
+    public void saveBooks(Collection<Book> books) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Book book : books.values()) {
+            for (Book book : books) {
                 writer.write(String.format("%s,%s,%s,%b\n",
                         book.getIsbn(),
                         book.getTitle(),
