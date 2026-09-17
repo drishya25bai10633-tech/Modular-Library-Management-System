@@ -100,7 +100,7 @@ Modular-Library-Management-System/
 2. **Apache Maven 3.6+** 
 3. **Clone the Repository:**
    ```text
-   git clone [https://github.com/drishya25bai10633-tech/Modular-Library-Management-System.git](https://github.com/drishya25bai10633-tech/Modular-Library-Management-System.git)
+   git clone https://github.com/drishya25bai10633-tech/Modular-Library-Management-System.git
    cd Modular-Library-Management-System
    ```
 4. **Build the project:** Compile source files and build the package using Maven:
