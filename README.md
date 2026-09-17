@@ -7,15 +7,15 @@ This project was developed as part of the **VITyarthi - Build Your Own Project**
 ---
 
 ## 📌 Table of Contents
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Technical Architecture](#technical-architecture)
-- [Technologies & Tools Used](#technologies--tools-used)
-- [Directory Structure](#directory-structure)
-- [Installation & Setup](#--installation--setup)
-- [How to Run](#how-to-run)
-- [Running Unit Tests](#running-unit-tests)
-- [Data Storage Format](#data-storage-format)
+- [Project Overview](#-project-overview)
+- [Features](#-features)
+- [Technical Architecture](#-technical-architecture)
+- [Technologies & Tools Used](#-technologies--tools-used)
+- [Directory Structure](#-directory-structure)
+- [Installation & Setup](#-installation-&-setup)
+- [How to Run](#-how-to-run)
+- [Running Unit Tests](#-running-unit-tests)
+- [Data Storage Format](#-data-storage-format)
 
 ---
 
@@ -94,6 +94,7 @@ Modular-Library-Management-System/
                     └── LibraryServiceTest.java
 ```
 ## ⚙️ Installation & Setup
+
 ### Prerequisites:
 1. **JDK 17 or higher** 
 2. **Apache Maven 3.6+** 
