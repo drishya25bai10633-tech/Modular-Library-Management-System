@@ -23,14 +23,8 @@ public class FileStorageService {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 4) {
-                    String isbn = parts[0].trim();
-                    String title = parts[1].trim();
-                    String author = parts[2].trim();
-                    boolean isIssued = Boolean.parseBoolean(parts[3].trim());
-                    
-                    Book book = new Book(title, author, isbn, isIssued);
+                Book book = Book.fromCsv(line);
+                if (book != null) {
                     books.add(book);
                 }
             }
@@ -44,9 +38,9 @@ public class FileStorageService {
     private List<Book> seedInitialData() {
         List<Book> defaultBooks = new ArrayList<>();
         
-        defaultBooks.add(new Book("Effective Java", "Joshua Bloch", "101", false));
-        defaultBooks.add(new Book("Clean Code", "Robert C. Martin", "102", false));
-        defaultBooks.add(new Book("Design Patterns", "Erich Gamma", "103", false));
+        defaultBooks.add(new Book("101", "Effective Java", "Joshua Bloch", false));
+        defaultBooks.add(new Book("102", "Clean Code", "Robert C. Martin", false));
+        defaultBooks.add(new Book("103", "Design Patterns", "Erich Gamma", false));
 
         saveBooks(defaultBooks);
         return defaultBooks;
@@ -55,11 +49,7 @@ public class FileStorageService {
     public void saveBooks(Collection<Book> books) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Book book : books) {
-                writer.write(String.format("%s,%s,%s,%b\n",
-                        book.getIsbn(),
-                        book.getTitle(),
-                        book.getAuthor(),
-                        book.isIssued()));
+                writer.write(book.toCsv() + "\n");
             }
             System.out.println("Catalog state saved to " + filePath);
         } catch (IOException e) {
