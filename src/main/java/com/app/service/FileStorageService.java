@@ -11,8 +11,8 @@ public class FileStorageService {
         this.filePath = filePath;
     }
 
-    public Map<String, Book> loadBooks() {
-        Map<String, Book> books = new HashMap<>();
+    public List<Book> loadBooks() {
+        List<Book> books = new ArrayList<>();
         File file = new File(filePath);
 
         if (!file.exists() || file.length() == 0) {
@@ -31,7 +31,7 @@ public class FileStorageService {
                     boolean isIssued = Boolean.parseBoolean(parts[3].trim());
                     
                     Book book = new Book(title, author, isbn, isIssued);
-                    books.put(isbn, book);
+                    books.add(book);
                 }
             }
         } catch (IOException e) {
@@ -41,18 +41,14 @@ public class FileStorageService {
         return books;
     }
 
-    private Map<String, Book> seedInitialData() {
-        Map<String, Book> defaultBooks = new HashMap<>();
+    private List<Book> seedInitialData() {
+        List<Book> defaultBooks = new ArrayList<>();
         
-        Book b1 = new Book("Effective Java", "Joshua Bloch", "101", false);
-        Book b2 = new Book("Clean Code", "Robert C. Martin", "102", false);
-        Book b3 = new Book("Design Patterns", "Erich Gamma", "103", false);
+        defaultBooks.add(new Book("Effective Java", "Joshua Bloch", "101", false));
+        defaultBooks.add(new Book("Clean Code", "Robert C. Martin", "102", false));
+        defaultBooks.add(new Book("Design Patterns", "Erich Gamma", "103", false));
 
-        defaultBooks.put("101", b1);
-        defaultBooks.put("102", b2);
-        defaultBooks.put("103", b3);
-
-        saveBooks(defaultBooks.values());
+        saveBooks(defaultBooks);
         return defaultBooks;
     }
 
