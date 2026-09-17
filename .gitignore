@@ -1,3 +1,15 @@
-.config/
-sample_data/
+# Maven build output
 target/
+*.class
+
+# IDE and System files
+.settings/
+.classpath
+.project
+.idea/
+*.iml
+.DS_Store
+
+# Google Colab temporary artifacts
+sample_data/
+.config/
